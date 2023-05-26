@@ -13,7 +13,7 @@ CREATE TABLE `body_data` (
   `bd_wgt` float NOT NULL COMMENT '體重',
   `bd_fat` float NOT NULL COMMENT '體脂',
   `bd_add_time` timestamp NOT NULL COMMENT '新增時間',
-  `bd_update_time` timestamp NOT NULL COMMENT '修改時間',
+  `bd_update_time` timestamp COMMENT '修改時間',
   PRIMARY KEY (`bd_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='健康資料';
 CREATE TABLE `branch` (
@@ -35,7 +35,7 @@ CREATE TABLE `business` (
   `b_addr` varchar(60) NOT NULL COMMENT '住址',
   `b_start_date` timestamp NOT NULL COMMENT '入職日期',
   `b_add_time` timestamp NOT NULL COMMENT '新增時間',
-  `b_modi_time` timestamp NOT NULL COMMENT '修改時間',
+  `b_modi_time` timestamp COMMENT '修改時間',
   `b_modi_id` varchar(20) NOT NULL COMMENT '修改人 ( 也是員工',
   `b_email` varchar(40) NOT NULL COMMENT 'email',
   `bh_id` int NOT NULL COMMENT '分店 ID',
@@ -77,7 +77,7 @@ CREATE TABLE `coach` (
   `c_addr` varchar(60) NOT NULL COMMENT '住址',
   `c_start_date` timestamp NOT NULL COMMENT '入職日期',
   `c_add_time` timestamp NOT NULL COMMENT '新增時間',
-  `c_modi_time` timestamp NOT NULL COMMENT '修改時間',
+  `c_modi_time` timestamp COMMENT '修改時間',
   `b_id` varchar(20) NOT NULL COMMENT '修改人 ID',
   `c_email` varchar(40) NOT NULL COMMENT 'email',
   `c_intro` varchar(1000) NOT NULL COMMENT '註解( 可以打經歷 )',
@@ -89,7 +89,7 @@ CREATE TABLE `comment` (
   `com_id` int NOT NULL AUTO_INCREMENT COMMENT 'UUID',
   `pt_id` int NOT NULL COMMENT '從屬貼文 ID',
   `com_add_time` timestamp NOT NULL COMMENT '創建時間',
-  `com_modi_time` timestamp NOT NULL COMMENT '修改時間',
+  `com_modi_time` timestamp COMMENT '修改時間',
   `m_id` varchar(20) NOT NULL COMMENT '會員 ID',
   `com_text` varchar(600) NOT NULL COMMENT '留言內文',
   PRIMARY KEY (`com_id`)
@@ -106,7 +106,7 @@ CREATE TABLE `comment_pic` (
   `pt_id` int NOT NULL COMMENT '從屬貼文',
   `cp_pic` blob NOT NULL COMMENT '圖片',
   `cp_add_time` timestamp NOT NULL COMMENT '創建時間',
-  `cp_modi_time` timestamp NOT NULL COMMENT '修改時間',
+  `cp_modi_time` timestamp COMMENT '修改時間',
   PRIMARY KEY (`cp_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='留言圖庫區';
 CREATE TABLE `data_agree_list` (
@@ -115,7 +115,7 @@ CREATE TABLE `data_agree_list` (
   `c_id` varchar(20) NOT NULL COMMENT '教練 ID',
   `dal_add_time` timestamp NOT NULL COMMENT '新增時間',
   `dal_agree` tinyint NOT NULL COMMENT '同不同意',
-  `dal_update_time` timestamp NOT NULL COMMENT '修改時間',
+  `dal_update_time` timestamp COMMENT '修改時間',
   PRIMARY KEY (`dal_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='分享身體數值的允許名單';
 CREATE TABLE `like_cat` (
@@ -134,7 +134,7 @@ CREATE TABLE `member` (
   `m_addr` varchar(60) NOT NULL COMMENT '住址',
   `m_ed_date` timestamp NOT NULL COMMENT '會員期限',
   `m_add_time` timestamp NOT NULL COMMENT '新增時間',
-  `m_modi_time` timestamp NOT NULL COMMENT '修改時間',
+  `m_modi_time` timestamp COMMENT '修改時間',
   `b_id` varchar(20) NOT NULL COMMENT '修改人 ID',
   `m_email` varchar(40) NOT NULL COMMENT 'email',
   `m_pic` blob NOT NULL COMMENT '大頭貼',
@@ -191,7 +191,7 @@ CREATE TABLE `point` (
 CREATE TABLE `post` (
   `pt_id` int NOT NULL AUTO_INCREMENT COMMENT 'UUID',
   `pt_add_time` timestamp NOT NULL COMMENT '創建時間',
-  `pt_update_time` timestamp NOT NULL COMMENT '修改時間',
+  `pt_update_time` timestamp COMMENT '修改時間',
   `m_id` varchar(20) NOT NULL COMMENT '用戶代號',
   `pt_text` varchar(600) NOT NULL COMMENT '內文',
   PRIMARY KEY (`pt_id`)
@@ -201,7 +201,7 @@ CREATE TABLE `post_like` (
   `pt_id` int NOT NULL COMMENT '按讚的貼文 UUID',
   `m_id` varchar(20) NOT NULL COMMENT '按讚的用戶代號',
   `lc_id` int NOT NULL COMMENT '按讚代號',
-  `cp_modi_time` timestamp NOT NULL COMMENT '修改時間',
+  `cp_modi_time` timestamp COMMENT '修改時間',
   PRIMARY KEY (`pl_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='貼文按讚資訊';
 CREATE TABLE `post_pic` (
@@ -209,7 +209,7 @@ CREATE TABLE `post_pic` (
   `pt_id` int NOT NULL COMMENT '從屬貼文',
   `pp_pic` blob NOT NULL COMMENT '圖片',
   `pp_add_time` timestamp NOT NULL COMMENT '創建時間',
-  `pp_modi_time` timestamp NOT NULL COMMENT '修改時間',
+  `pp_modi_time` timestamp COMMENT '修改時間',
   PRIMARY KEY (`pp_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='貼文圖庫區';
 CREATE TABLE `saved_post` (
