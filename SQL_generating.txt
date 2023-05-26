@@ -1,232 +1,373 @@
-CREATE TABLE `block_list` (
-  `bl_id` int NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `c_id` varchar(20) NOT NULL COMMENT '教練 ID',
-  `m_id` varchar(20) NOT NULL COMMENT '會員 ID',
-  `cr_id` int NOT NULL COMMENT '聊天室ID',
-  `bl_add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '新增時間',
-  PRIMARY KEY (`bl_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='黑名單 ( 封鎖 ) 列表';
-CREATE TABLE `body_data` (
-  `bd_id` int NOT NULL AUTO_INCREMENT COMMENT '健康資料 UUID',
-  `m_id` varchar(20) NOT NULL COMMENT '會員 ID',
-  `bd_hgt` float NOT NULL COMMENT '身高',
-  `bd_wgt` float NOT NULL COMMENT '體重',
-  `bd_fat` float NOT NULL COMMENT '體脂',
-  `bd_add_time` timestamp NOT NULL COMMENT '新增時間',
-  `bd_update_time` timestamp COMMENT '修改時間',
-  PRIMARY KEY (`bd_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='健康資料';
-CREATE TABLE `branch` (
-  `bh_id` int NOT NULL AUTO_INCREMENT COMMENT '分店 ID',
-  `bh_name` varchar(20) NOT NULL COMMENT '分店名稱',
-  `bh_addr` varchar(60) NOT NULL COMMENT '分店地址',
-  `bh_cell` varchar(20) NOT NULL COMMENT '電話',
-  `bh_start_time` varchar(20) NOT NULL COMMENT '開門時間',
-  `bh_ed_time` varchar(20) NOT NULL COMMENT '關門時間',
-  PRIMARY KEY (`bh_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='分店資料';
-CREATE TABLE `business` (
-  `b_id` varchar(20) NOT NULL COMMENT '員工 ID',
-  `b_pwd` varchar(20) NOT NULL COMMENT '密碼',
-  `b_name` varchar(20) NOT NULL COMMENT '員工姓名',
-  `b_gen` tinyint NOT NULL COMMENT '性別',
-  `b_cell` varchar(20) NOT NULL COMMENT '聯絡電話',
-  `b_twid` varchar(20) NOT NULL COMMENT '身分證字號',
-  `b_addr` varchar(60) NOT NULL COMMENT '住址',
-  `b_start_date` timestamp NOT NULL COMMENT '入職日期',
-  `b_add_time` timestamp NOT NULL COMMENT '新增時間',
-  `b_modi_time` timestamp COMMENT '修改時間',
-  `b_modi_id` varchar(20) NOT NULL COMMENT '修改人 ( 也是員工',
-  `b_email` varchar(40) NOT NULL COMMENT 'email',
-  `bh_id` int NOT NULL COMMENT '分店 ID',
-  `b_sus` tinyint(1) NOT NULL COMMENT '是否停權',
-  `c_pic` blob NOT NULL COMMENT '大頭貼',
-  PRIMARY KEY (`b_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='公司員工資料';
-CREATE TABLE `chatroom` (
-  `cr_id` int NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `c_id` varchar(20) NOT NULL COMMENT '教練 ID',
-  `m_id` varchar(20) NOT NULL COMMENT '會員 ID',
-  `cr_add_time` timestamp NOT NULL COMMENT '創建時間',
-  PRIMARY KEY (`cr_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='聊天室';
-CREATE TABLE `class_info` (
-  `ci_id` int NOT NULL AUTO_INCREMENT COMMENT '課程 ID',
-  `ci_name` varchar(20) NOT NULL COMMENT '課程名稱',
-  `ci_start_time` timestamp NOT NULL COMMENT '課程開始時間',
-  `ci_ed_time` timestamp NOT NULL COMMENT '課程結束時間',
-  `ci_place` varchar(20) NOT NULL COMMENT '上課地點',
-  `ci_cost` smallint NOT NULL COMMENT '現在上課點數花費',
-  `ci_date` timestamp NOT NULL COMMENT '上課日期',
-  `ci_text` varchar(1000) NOT NULL COMMENT '備註',
-  `ci_limit` mediumint NOT NULL COMMENT '人數上限',
-  `ci_add_time` timestamp NOT NULL COMMENT '新增時間',
-  `bh_id` int NOT NULL COMMENT '分店 ID',
-  `ci_regi_time` timestamp NOT NULL COMMENT '開放報名時間',
-  `ci_regi_ed_time` timestamp NOT NULL COMMENT '截止時間',
-  `b_id` varchar(20) NOT NULL COMMENT '修改人 ID',
-  PRIMARY KEY (`ci_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='課程資訊(產品資料表)';
-CREATE TABLE `coach` (
-  `c_id` varchar(20) NOT NULL COMMENT '教練 ID',
-  `c_pwd` varchar(20) NOT NULL COMMENT '密碼',
-  `c_name` varchar(20) NOT NULL COMMENT '教練名字',
-  `c_gen` tinyint NOT NULL COMMENT '性別',
-  `c_cell` varchar(20) NOT NULL COMMENT '聯絡電話',
-  `c_twid` varchar(20) NOT NULL COMMENT '身分證字號',
-  `c_addr` varchar(60) NOT NULL COMMENT '住址',
-  `c_start_date` timestamp NOT NULL COMMENT '入職日期',
-  `c_add_time` timestamp NOT NULL COMMENT '新增時間',
-  `c_modi_time` timestamp COMMENT '修改時間',
-  `b_id` varchar(20) NOT NULL COMMENT '修改人 ID',
-  `c_email` varchar(40) NOT NULL COMMENT 'email',
-  `c_intro` varchar(1000) NOT NULL COMMENT '註解( 可以打經歷 )',
-  `c_sus` tinyint(1) NOT NULL COMMENT '是否停權',
-  `c_pic` blob NOT NULL COMMENT '大頭貼',
-  PRIMARY KEY (`c_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='教練資料';
-CREATE TABLE `comment` (
-  `com_id` int NOT NULL AUTO_INCREMENT COMMENT 'UUID',
-  `pt_id` int NOT NULL COMMENT '從屬貼文 ID',
-  `com_add_time` timestamp NOT NULL COMMENT '創建時間',
-  `com_modi_time` timestamp COMMENT '修改時間',
-  `m_id` varchar(20) NOT NULL COMMENT '會員 ID',
-  `com_text` varchar(600) NOT NULL COMMENT '留言內文',
-  PRIMARY KEY (`com_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='留言';
-CREATE TABLE `comment_like` (
-  `cl_id` int NOT NULL AUTO_INCREMENT COMMENT 'UUID',
-  `pt_id` int NOT NULL COMMENT '按讚的貼文 UUID',
-  `m_id` varchar(20) NOT NULL COMMENT '按讚的用戶代號',
-  `lc_id` int NOT NULL COMMENT '按讚代號',
-  PRIMARY KEY (`cl_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='留言按讚資訊';
-CREATE TABLE `comment_pic` (
-  `cp_id` int NOT NULL AUTO_INCREMENT COMMENT 'UUID',
-  `pt_id` int NOT NULL COMMENT '從屬貼文',
-  `cp_pic` blob NOT NULL COMMENT '圖片',
-  `cp_add_time` timestamp NOT NULL COMMENT '創建時間',
-  `cp_modi_time` timestamp COMMENT '修改時間',
-  PRIMARY KEY (`cp_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='留言圖庫區';
-CREATE TABLE `data_agree_list` (
-  `dal_id` int NOT NULL AUTO_INCREMENT COMMENT '名單 UUID',
-  `m_id` varchar(20) NOT NULL COMMENT '會員 ID',
-  `c_id` varchar(20) NOT NULL COMMENT '教練 ID',
-  `dal_add_time` timestamp NOT NULL COMMENT '新增時間',
-  `dal_agree` tinyint NOT NULL COMMENT '同不同意',
-  `dal_update_time` timestamp COMMENT '修改時間',
-  PRIMARY KEY (`dal_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='分享身體數值的允許名單';
-CREATE TABLE `like_cat` (
-  `lc_id` int NOT NULL COMMENT '按讚代號',
-  `lc_name` varchar(20) NOT NULL COMMENT '按讚名字',
-  `lc_pic_num` tinyint NOT NULL COMMENT '按讚圖檔代號',
-  PRIMARY KEY (`lc_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='按讚種類';
-CREATE TABLE `member` (
-  `m_id` varchar(20) NOT NULL COMMENT '會員 ID',
-  `m_pwd` varchar(20) NOT NULL COMMENT '密碼',
-  `m_name` varchar(20) NOT NULL COMMENT '姓名',
-  `m_gen` tinyint NOT NULL COMMENT '性別',
-  `m_cell` varchar(20) NOT NULL COMMENT '聯絡電話',
-  `m_twid` varchar(20) NOT NULL COMMENT '身分證字號',
-  `m_addr` varchar(60) NOT NULL COMMENT '住址',
-  `m_ed_date` timestamp NOT NULL COMMENT '會員期限',
-  `m_add_time` timestamp NOT NULL COMMENT '新增時間',
-  `m_modi_time` timestamp COMMENT '修改時間',
-  `b_id` varchar(20) NOT NULL COMMENT '修改人 ID',
-  `m_email` varchar(40) NOT NULL COMMENT 'email',
-  `m_pic` blob NOT NULL COMMENT '大頭貼',
-  `m_sus` tinyint(1) NOT NULL COMMENT '是否停權',
-  PRIMARY KEY (`m_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='會員資料';
-CREATE TABLE `message` (
-  `msg_id` int NOT NULL AUTO_INCREMENT COMMENT 'UUID',
-  `cr_id` int NOT NULL COMMENT '從屬聊天室 ID',
-  `m_id` varchar(20) NOT NULL COMMENT '會員 ID',
-  `c_id` varchar(20) NOT NULL COMMENT '教練 ID',
-  `msg_text` varchar(600) NOT NULL COMMENT '聊天內容',
-  `msg_add_time` timestamp NOT NULL COMMENT '時間',
-  PRIMARY KEY (`msg_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='聊天訊息列表';
-CREATE TABLE `notify` (
-  `nt_id` int NOT NULL AUTO_INCREMENT COMMENT '公告 ID ( 流水號 )',
-  `m_id` varchar(20) NOT NULL COMMENT '員工 ID',
-  `nt_send_time` timestamp NOT NULL COMMENT '發公告時間',
-  `bh_id` int NOT NULL COMMENT '分店 ID',
-  `nt_text` varchar(255) NOT NULL COMMENT '公告內容',
-  `nt_pic` blob NOT NULL COMMENT '公告圖片',
-  PRIMARY KEY (`nt_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='公告';
-CREATE TABLE `order_detail` (
-  `od_id` int NOT NULL AUTO_INCREMENT COMMENT '課程購買明細',
-  `m_id` varchar(20) NOT NULL COMMENT '會員',
-  `or_id` int NOT NULL COMMENT '記錄編號',
-  `od_total` smallint NOT NULL COMMENT '當時點數花費 ( 個 )',
-  `sc_id` int NOT NULL COMMENT '運動種類 ID',
-  `od_start_time` timestamp NULL DEFAULT NULL COMMENT '開始時間',
-  `od_ed_time` timestamp NULL DEFAULT NULL COMMENT '結束時間',
-  `cl_id` int NOT NULL COMMENT '課程 ID',
-  `od_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新時間',
-  PRIMARY KEY (`od_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='課程購買(明細)';
-CREATE TABLE `order_rec` (
-  `or_id` int NOT NULL AUTO_INCREMENT COMMENT '紀錄編號 ID',
-  `m_id` varchar(20) NOT NULL COMMENT '會員 ID',
-  `or_amt` smallint NOT NULL COMMENT '課程數量',
-  `or_total` smallint NOT NULL COMMENT '總花費',
-  `or_buy_time` timestamp NOT NULL COMMENT '購買時間',
-  PRIMARY KEY (`or_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='課程購買 ( 記錄 )';
-CREATE TABLE `point` (
-  `p_id` int NOT NULL COMMENT 'ID',
-  `m_id` varchar(20) NOT NULL COMMENT '會員 ID',
-  `p_left` int NOT NULL COMMENT '點數餘額',
-  `p_card` tinyint NOT NULL COMMENT '信用卡綁定',
-  `p_modi_time` timestamp NOT NULL COMMENT '點數異動時間',
-  `p_rec` varchar(20) NOT NULL COMMENT '點數交易記錄（課程花費 / 點數儲值 ）',
-  PRIMARY KEY (`p_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='點數資料';
-CREATE TABLE `post` (
-  `pt_id` int NOT NULL AUTO_INCREMENT COMMENT 'UUID',
-  `pt_add_time` timestamp NOT NULL COMMENT '創建時間',
-  `pt_update_time` timestamp COMMENT '修改時間',
-  `m_id` varchar(20) NOT NULL COMMENT '用戶代號',
-  `pt_text` varchar(600) NOT NULL COMMENT '內文',
-  PRIMARY KEY (`pt_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='貼文';
-CREATE TABLE `post_like` (
-  `pl_id` int NOT NULL AUTO_INCREMENT COMMENT 'UUID',
-  `pt_id` int NOT NULL COMMENT '按讚的貼文 UUID',
-  `m_id` varchar(20) NOT NULL COMMENT '按讚的用戶代號',
-  `lc_id` int NOT NULL COMMENT '按讚代號',
-  `cp_modi_time` timestamp COMMENT '修改時間',
-  PRIMARY KEY (`pl_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='貼文按讚資訊';
-CREATE TABLE `post_pic` (
-  `pp_id` int NOT NULL AUTO_INCREMENT COMMENT 'UUID',
-  `pt_id` int NOT NULL COMMENT '從屬貼文',
-  `pp_pic` blob NOT NULL COMMENT '圖片',
-  `pp_add_time` timestamp NOT NULL COMMENT '創建時間',
-  `pp_modi_time` timestamp COMMENT '修改時間',
-  PRIMARY KEY (`pp_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='貼文圖庫區';
-CREATE TABLE `saved_post` (
-  `sp_id` int NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `m_id` varchar(20) NOT NULL COMMENT '會員 ID',
-  `pt_id` int NOT NULL COMMENT '貼文 UUID',
-  `sp_add_time` timestamp NOT NULL COMMENT '新增時間',
-  PRIMARY KEY (`sp_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='個人珍藏貼文列表';
-CREATE TABLE `sport_data` (
-  `sd_id` int NOT NULL AUTO_INCREMENT COMMENT '數據 ID',
-  `m_id` varchar(20) NOT NULL COMMENT '會員 ID',
-  `sd_update_time` timestamp NOT NULL COMMENT '更新時間',
-  `sc_id` int NOT NULL COMMENT '運動種類 ID',
-  `sc_weight` float NOT NULL COMMENT '重量',
-  `sc_freq` smallint NOT NULL COMMENT '次數',
-  `sc_set` smallint NOT NULL COMMENT '第幾組',
-  `c_id` varchar(20) NOT NULL COMMENT '教練 ID( 可為 null)',
-  PRIMARY KEY (`sd_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='運動數據';
+CREATE TABLE `block_list`
+  (
+     `bl_id`       INT NOT NULL auto_increment comment 'ID',
+     `c_id`        VARCHAR(20) NOT NULL comment '教練 ID',
+     `m_id`        VARCHAR(20) NOT NULL comment '會員 ID',
+     `cr_id`       INT NOT NULL comment '聊天室ID',
+     `bl_add_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment
+     '新增時間',
+     PRIMARY KEY (`bl_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='黑名單 ( 封鎖 ) 列表';
+
+CREATE TABLE `body_data`
+  (
+     `bd_id`          INT NOT NULL auto_increment comment '健康資料 UUID',
+     `m_id`           VARCHAR(20) NOT NULL comment '會員 ID',
+     `bd_hgt`         FLOAT NOT NULL comment '身高',
+     `bd_wgt`         FLOAT NOT NULL comment '體重',
+     `bd_fat`         FLOAT NOT NULL comment '體脂',
+     `bd_add_time`    TIMESTAMP NOT NULL comment '新增時間',
+     `bd_update_time` TIMESTAMP comment '修改時間',
+     PRIMARY KEY (`bd_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='健康資料';
+
+CREATE TABLE `branch`
+  (
+     `bh_id`         INT NOT NULL auto_increment comment '分店 ID',
+     `bh_name`       VARCHAR(20) NOT NULL comment '分店名稱',
+     `bh_addr`       VARCHAR(60) NOT NULL comment '分店地址',
+     `bh_cell`       VARCHAR(20) NOT NULL comment '電話',
+     `bh_start_time` VARCHAR(20) NOT NULL comment '開門時間',
+     `bh_ed_time`    VARCHAR(20) NOT NULL comment '關門時間',
+     PRIMARY KEY (`bh_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='分店資料';
+
+CREATE TABLE `business`
+  (
+     `b_id`         VARCHAR(20) NOT NULL comment '員工 ID',
+     `b_pwd`        VARCHAR(20) NOT NULL comment '密碼',
+     `b_name`       VARCHAR(20) NOT NULL comment '員工姓名',
+     `b_gen`        TINYINT NOT NULL comment '性別',
+     `b_cell`       VARCHAR(20) NOT NULL comment '聯絡電話',
+     `b_twid`       VARCHAR(20) NOT NULL comment '身分證字號',
+     `b_addr`       VARCHAR(60) NOT NULL comment '住址',
+     `b_start_date` TIMESTAMP NOT NULL comment '入職日期',
+     `b_add_time`   TIMESTAMP NOT NULL comment '新增時間',
+     `b_modi_time`  TIMESTAMP comment '修改時間',
+     `b_modi_id`    VARCHAR(20) NOT NULL comment '修改人 ( 也是員工',
+     `b_email`      VARCHAR(40) NOT NULL comment 'email',
+     `bh_id`        INT NOT NULL comment '分店 ID',
+     `b_sus`        TINYINT(1) NOT NULL comment '是否停權',
+     `c_pic`        BLOB NOT NULL comment '大頭貼',
+     PRIMARY KEY (`b_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='公司員工資料';
+
+CREATE TABLE `chatroom`
+  (
+     `cr_id`       INT NOT NULL auto_increment comment 'ID',
+     `c_id`        VARCHAR(20) NOT NULL comment '教練 ID',
+     `m_id`        VARCHAR(20) NOT NULL comment '會員 ID',
+     `cr_add_time` TIMESTAMP NOT NULL comment '創建時間',
+     PRIMARY KEY (`cr_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='聊天室';
+
+CREATE TABLE `class_info`
+  (
+     `ci_id`           INT NOT NULL auto_increment comment '課程 ID',
+     `ci_name`         VARCHAR(20) NOT NULL comment '課程名稱',
+     `ci_start_time`   TIMESTAMP NOT NULL comment '課程開始時間',
+     `ci_ed_time`      TIMESTAMP NOT NULL comment '課程結束時間',
+     `ci_place`        VARCHAR(20) NOT NULL comment '上課地點',
+     `ci_cost`         SMALLINT NOT NULL comment '現在上課點數花費',
+     `ci_date`         TIMESTAMP NOT NULL comment '上課日期',
+     `ci_text`         VARCHAR(1000) NOT NULL comment '備註',
+     `ci_limit`        MEDIUMINT NOT NULL comment '人數上限',
+     `ci_add_time`     TIMESTAMP NOT NULL comment '新增時間',
+     `bh_id`           INT NOT NULL comment '分店 ID',
+     `ci_regi_time`    TIMESTAMP NOT NULL comment '開放報名時間',
+     `ci_regi_ed_time` TIMESTAMP NOT NULL comment '截止時間',
+     `b_id`            VARCHAR(20) NOT NULL comment '修改人 ID',
+     PRIMARY KEY (`ci_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='課程資訊(產品資料表)';
+
+CREATE TABLE `coach`
+  (
+     `c_id`         VARCHAR(20) NOT NULL comment '教練 ID',
+     `c_pwd`        VARCHAR(20) NOT NULL comment '密碼',
+     `c_name`       VARCHAR(20) NOT NULL comment '教練名字',
+     `c_gen`        TINYINT NOT NULL comment '性別',
+     `c_cell`       VARCHAR(20) NOT NULL comment '聯絡電話',
+     `c_twid`       VARCHAR(20) NOT NULL comment '身分證字號',
+     `c_addr`       VARCHAR(60) NOT NULL comment '住址',
+     `c_start_date` TIMESTAMP NOT NULL comment '入職日期',
+     `c_add_time`   TIMESTAMP NOT NULL comment '新增時間',
+     `c_modi_time`  TIMESTAMP comment '修改時間',
+     `b_id`         VARCHAR(20) NOT NULL comment '修改人 ID',
+     `c_email`      VARCHAR(40) NOT NULL comment 'email',
+     `c_intro`      VARCHAR(1000) NOT NULL comment '註解( 可以打經歷 )',
+     `c_sus`        TINYINT(1) NOT NULL comment '是否停權',
+     `c_pic`        BLOB NOT NULL comment '大頭貼',
+     PRIMARY KEY (`c_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='教練資料';
+
+CREATE TABLE `comment`
+  (
+     `com_id`        INT NOT NULL auto_increment comment 'UUID',
+     `pt_id`         INT NOT NULL comment '從屬貼文 ID',
+     `com_add_time`  TIMESTAMP NOT NULL comment '創建時間',
+     `com_modi_time` TIMESTAMP comment '修改時間',
+     `m_id`          VARCHAR(20) NOT NULL comment '會員 ID',
+     `com_text`      VARCHAR(600) NOT NULL comment '留言內文',
+     PRIMARY KEY (`com_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='留言';
+
+CREATE TABLE `comment_like`
+  (
+     `cl_id` INT NOT NULL auto_increment comment 'UUID',
+     `pt_id` INT NOT NULL comment '按讚的貼文 UUID',
+     `m_id`  VARCHAR(20) NOT NULL comment '按讚的用戶代號',
+     `lc_id` INT NOT NULL comment '按讚代號',
+     PRIMARY KEY (`cl_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='留言按讚資訊';
+
+CREATE TABLE `comment_pic`
+  (
+     `cp_id`        INT NOT NULL auto_increment comment 'UUID',
+     `pt_id`        INT NOT NULL comment '從屬貼文',
+     `cp_pic`       BLOB NOT NULL comment '圖片',
+     `cp_add_time`  TIMESTAMP NOT NULL comment '創建時間',
+     `cp_modi_time` TIMESTAMP comment '修改時間',
+     PRIMARY KEY (`cp_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='留言圖庫區';
+
+CREATE TABLE `data_agree_list`
+  (
+     `dal_id`          INT NOT NULL auto_increment comment '名單 UUID',
+     `m_id`            VARCHAR(20) NOT NULL comment '會員 ID',
+     `c_id`            VARCHAR(20) NOT NULL comment '教練 ID',
+     `dal_add_time`    TIMESTAMP NOT NULL comment '新增時間',
+     `dal_agree`       TINYINT NOT NULL comment '同不同意',
+     `dal_update_time` TIMESTAMP comment '修改時間',
+     PRIMARY KEY (`dal_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='分享身體數值的允許名單';
+
+CREATE TABLE `like_cat`
+  (
+     `lc_id`      INT NOT NULL comment '按讚代號',
+     `lc_name`    VARCHAR(20) NOT NULL comment '按讚名字',
+     `lc_pic_num` TINYINT NOT NULL comment '按讚圖檔代號',
+     PRIMARY KEY (`lc_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='按讚種類';
+
+CREATE TABLE `member`
+  (
+     `m_id`        VARCHAR(20) NOT NULL comment '會員 ID',
+     `m_pwd`       VARCHAR(20) NOT NULL comment '密碼',
+     `m_name`      VARCHAR(20) NOT NULL comment '姓名',
+     `m_gen`       TINYINT NOT NULL comment '性別',
+     `m_cell`      VARCHAR(20) NOT NULL comment '聯絡電話',
+     `m_twid`      VARCHAR(20) NOT NULL comment '身分證字號',
+     `m_addr`      VARCHAR(60) NOT NULL comment '住址',
+     `m_ed_date`   TIMESTAMP NOT NULL comment '會員期限',
+     `m_add_time`  TIMESTAMP NOT NULL comment '新增時間',
+     `m_modi_time` TIMESTAMP comment '修改時間',
+     `b_id`        VARCHAR(20) NOT NULL comment '修改人 ID',
+     `m_email`     VARCHAR(40) NOT NULL comment 'email',
+     `m_pic`       BLOB NOT NULL comment '大頭貼',
+     `m_sus`       TINYINT(1) NOT NULL comment '是否停權',
+     PRIMARY KEY (`m_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='會員資料';
+
+CREATE TABLE `message`
+  (
+     `msg_id`       INT NOT NULL auto_increment comment 'UUID',
+     `cr_id`        INT NOT NULL comment '從屬聊天室 ID',
+     `m_id`         VARCHAR(20) NOT NULL comment '會員 ID',
+     `c_id`         VARCHAR(20) NOT NULL comment '教練 ID',
+     `msg_text`     VARCHAR(600) NOT NULL comment '聊天內容',
+     `msg_add_time` TIMESTAMP NOT NULL comment '時間',
+     PRIMARY KEY (`msg_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='聊天訊息列表';
+
+CREATE TABLE `notify`
+  (
+     `nt_id`        INT NOT NULL auto_increment comment
+     '公告 ID ( 流水號 )',
+     `m_id`         VARCHAR(20) NOT NULL comment '員工 ID',
+     `nt_send_time` TIMESTAMP NOT NULL comment '發公告時間',
+     `bh_id`        INT NOT NULL comment '分店 ID',
+     `nt_text`      VARCHAR(255) NOT NULL comment '公告內容',
+     `nt_pic`       BLOB NOT NULL comment '公告圖片',
+     PRIMARY KEY (`nt_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='公告';
+
+CREATE TABLE `order_detail`
+  (
+     `od_id`          INT NOT NULL auto_increment comment '課程購買明細',
+     `m_id`           VARCHAR(20) NOT NULL comment '會員',
+     `or_id`          INT NOT NULL comment '記錄編號',
+     `od_total`       SMALLINT NOT NULL comment '當時點數花費 ( 個 )',
+     `sc_id`          INT NOT NULL comment '運動種類 ID',
+     `od_start_time`  TIMESTAMP NULL DEFAULT NULL comment '開始時間',
+     `od_ed_time`     TIMESTAMP NULL DEFAULT NULL comment '結束時間',
+     `cl_id`          INT NOT NULL comment '課程 ID',
+     `od_update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment
+     '更新時間',
+     PRIMARY KEY (`od_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='課程購買(明細)';
+
+CREATE TABLE `order_rec`
+  (
+     `or_id`       INT NOT NULL auto_increment comment '紀錄編號 ID',
+     `m_id`        VARCHAR(20) NOT NULL comment '會員 ID',
+     `or_amt`      SMALLINT NOT NULL comment '課程數量',
+     `or_total`    SMALLINT NOT NULL comment '總花費',
+     `or_buy_time` TIMESTAMP NOT NULL comment '購買時間',
+     PRIMARY KEY (`or_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='課程購買 ( 記錄 )';
+
+CREATE TABLE `point`
+  (
+     `p_id`        INT NOT NULL comment 'ID',
+     `m_id`        VARCHAR(20) NOT NULL comment '會員 ID',
+     `p_left`      INT NOT NULL comment '點數餘額',
+     `p_card`      TINYINT NOT NULL comment '信用卡綁定',
+     `p_modi_time` TIMESTAMP NOT NULL comment '點數異動時間',
+     `p_rec`       VARCHAR(20) NOT NULL comment
+     '點數交易記錄（課程花費 / 點數儲值 ）',
+     PRIMARY KEY (`p_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='點數資料';
+
+CREATE TABLE `post`
+  (
+     `pt_id`          INT NOT NULL auto_increment comment 'UUID',
+     `pt_add_time`    TIMESTAMP NOT NULL comment '創建時間',
+     `pt_update_time` TIMESTAMP comment '修改時間',
+     `m_id`           VARCHAR(20) NOT NULL comment '用戶代號',
+     `pt_text`        VARCHAR(600) NOT NULL comment '內文',
+     PRIMARY KEY (`pt_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='貼文';
+
+CREATE TABLE `post_like`
+  (
+     `pl_id`        INT NOT NULL auto_increment comment 'UUID',
+     `pt_id`        INT NOT NULL comment '按讚的貼文 UUID',
+     `m_id`         VARCHAR(20) NOT NULL comment '按讚的用戶代號',
+     `lc_id`        INT NOT NULL comment '按讚代號',
+     `cp_modi_time` TIMESTAMP comment '修改時間',
+     PRIMARY KEY (`pl_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='貼文按讚資訊';
+
+CREATE TABLE `post_pic`
+  (
+     `pp_id`        INT NOT NULL auto_increment comment 'UUID',
+     `pt_id`        INT NOT NULL comment '從屬貼文',
+     `pp_pic`       BLOB NOT NULL comment '圖片',
+     `pp_add_time`  TIMESTAMP NOT NULL comment '創建時間',
+     `pp_modi_time` TIMESTAMP comment '修改時間',
+     PRIMARY KEY (`pp_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='貼文圖庫區';
+
+CREATE TABLE `saved_post`
+  (
+     `sp_id`       INT NOT NULL auto_increment comment 'ID',
+     `m_id`        VARCHAR(20) NOT NULL comment '會員 ID',
+     `pt_id`       INT NOT NULL comment '貼文 UUID',
+     `sp_add_time` TIMESTAMP NOT NULL comment '新增時間',
+     PRIMARY KEY (`sp_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='個人珍藏貼文列表';
+
+CREATE TABLE `sport_data`
+  (
+     `sd_id`          INT NOT NULL auto_increment comment '數據 ID',
+     `m_id`           VARCHAR(20) NOT NULL comment '會員 ID',
+     `sd_update_time` TIMESTAMP NOT NULL comment '更新時間',
+     `sc_id`          INT NOT NULL comment '運動種類 ID',
+     `sc_weight`      FLOAT NOT NULL comment '重量',
+     `sc_freq`        SMALLINT NOT NULL comment '次數',
+     `sc_set`         SMALLINT NOT NULL comment '第幾組',
+     `c_id`           VARCHAR(20) NOT NULL comment '教練 ID( 可為 null)',
+     PRIMARY KEY (`sd_id`)
+  )
+engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+comment='運動數據'; 
