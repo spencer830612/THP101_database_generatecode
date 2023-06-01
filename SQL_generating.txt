@@ -47,6 +47,7 @@ comment='分店資料';
 CREATE TABLE `business`
   (
      `b_id`         VARCHAR(20) NOT NULL comment '員工 ID',
+	 `b_token`      VARCHAR(1000) comment '員工 firebase token',
      `b_pwd`        VARCHAR(20) NOT NULL comment '密碼',
      `b_name`       VARCHAR(20) NOT NULL comment '員工姓名',
      `b_gen`        TINYINT NOT NULL comment '性別',
@@ -107,6 +108,7 @@ comment='課程資訊(產品資料表)';
 CREATE TABLE `coach`
   (
      `c_id`         VARCHAR(20) NOT NULL comment '教練 ID',
+	 `c_token`      VARCHAR(1000) comment '教練 firebase token',
      `c_pwd`        VARCHAR(20) NOT NULL comment '密碼',
      `c_name`       VARCHAR(20) NOT NULL comment '教練名字',
      `c_gen`        TINYINT NOT NULL comment '性別',
@@ -121,6 +123,7 @@ CREATE TABLE `coach`
      `c_intro`      VARCHAR(1000) NOT NULL comment '註解( 可以打經歷 )',
      `c_sus`        TINYINT(1) NOT NULL comment '是否停權',
      `c_pic`        BLOB NOT NULL comment '大頭貼',
+	 `bh_id`        INT NOT NULL comment '分店代號',
      PRIMARY KEY (`c_id`)
   )
 engine=innodb
@@ -200,6 +203,7 @@ comment='按讚種類';
 CREATE TABLE `member`
   (
      `m_id`        VARCHAR(20) NOT NULL comment '會員 ID',
+	 `m_token`     VARCHAR(1000) comment '會員 firebase token',
      `m_pwd`       VARCHAR(20) NOT NULL comment '密碼',
      `m_name`      VARCHAR(20) NOT NULL comment '姓名',
      `m_gen`       TINYINT NOT NULL comment '性別',
@@ -364,7 +368,7 @@ CREATE TABLE `sport_data`
      `sc_weight`      FLOAT NOT NULL comment '重量',
      `sc_freq`        SMALLINT NOT NULL comment '次數',
      `sc_set`         SMALLINT NOT NULL comment '第幾組',
-     `c_id`           VARCHAR(20) NOT NULL comment '教練 ID( 可為 null)',
+     `c_id`           VARCHAR(20) comment '教練 ID( 可為 null)',
      PRIMARY KEY (`sd_id`)
   )
 engine=innodb
