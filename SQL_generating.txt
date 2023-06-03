@@ -375,3 +375,23 @@ engine=innodb
 DEFAULT charset=utf8mb4
 COLLATE=utf8mb4_0900_ai_ci
 comment='運動數據'; 
+
+CREATE TABLE `THP101`.`sport_cat` (
+  `sc_id` INT NOT NULL COMMENT 'ID',
+  `sb_cat` INT NOT NULL COMMENT '分類',
+  `sc_name` VARCHAR(20) NOT NULL COMMENT '名稱',
+  PRIMARY KEY (`sc_id`))
+ENGINE = InnoDB
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+COMMENT = '運動種類';
+
+CREATE TABLE `THP101`.`sport_Bigcat` (
+  `sb_id` INT NOT NULL COMMENT 'ID',
+  `sb_cat` VARCHAR(20) NOT NULL COMMENT '有氧無氧分類',
+  `sb_name` VARCHAR(20) NOT NULL COMMENT '名稱',
+  PRIMARY KEY (`sb_id`))
+ engine=innodb
+DEFAULT charset=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+COMMENT = '運動大項分類';
