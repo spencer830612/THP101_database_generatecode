@@ -90,6 +90,7 @@ CREATE TABLE `class_info`
      `ci_ed_time`      TIMESTAMP NOT NULL comment '課程結束時間',
      `ci_place`        VARCHAR(20) NOT NULL comment '上課地點',
      `ci_cost`         SMALLINT NOT NULL comment '現在上課點數花費',
+	 `c_id`            VARCHAR(20) NULL comment '教練 ID',
      `ci_date`         TIMESTAMP NOT NULL comment '上課日期',
      `ci_text`         VARCHAR(1000) NOT NULL comment '備註',
      `ci_limit`        MEDIUMINT NOT NULL comment '人數上限',
