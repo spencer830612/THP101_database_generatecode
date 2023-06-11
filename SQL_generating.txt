@@ -244,7 +244,7 @@ CREATE TABLE `notify`
   (
      `nt_id`        INT NOT NULL auto_increment comment
      '公告 ID ( 流水號 )',
-     `m_id`         VARCHAR(20) NOT NULL comment '員工 ID',
+     `b_id`         VARCHAR(20) NOT NULL comment '員工 ID',
      `nt_send_time` TIMESTAMP NOT NULL comment '發公告時間',
      `bh_id`        INT NOT NULL comment '分店 ID',
      `nt_text`      VARCHAR(255) NOT NULL comment '公告內容',
