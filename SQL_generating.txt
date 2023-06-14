@@ -59,9 +59,8 @@ CREATE TABLE `business`
      `b_modi_time`  TIMESTAMP comment '修改時間',
      `b_modi_id`    VARCHAR(20) NOT NULL comment '修改人 ( 也是員工',
      `b_email`      VARCHAR(40) NOT NULL comment 'email',
-     `bh_id`        INT NOT NULL comment '分店 ID',
+     `bh_name`        VARCHAR(10) NOT NULL comment '分店名稱',
      `b_sus`        TINYINT(1) NOT NULL comment '是否停權',
-     `c_pic`        BLOB NOT NULL comment '大頭貼',
      PRIMARY KEY (`b_id`)
   )
 engine=innodb
@@ -91,7 +90,6 @@ CREATE TABLE `class_info`
      `ci_place`        VARCHAR(20) NOT NULL comment '上課地點',
      `ci_cost`         SMALLINT NOT NULL comment '現在上課點數花費',
 	 `c_id`            VARCHAR(20) NULL comment '教練 ID',
-     `ci_date`         TIMESTAMP NOT NULL comment '上課日期',
      `ci_text`         VARCHAR(1000) NOT NULL comment '備註',
      `ci_limit`        MEDIUMINT NOT NULL comment '人數上限',
      `ci_add_time`     TIMESTAMP NOT NULL comment '新增時間',
@@ -100,6 +98,7 @@ CREATE TABLE `class_info`
      `ci_regi_ed_time` TIMESTAMP NOT NULL comment '截止時間',
      `b_id`            VARCHAR(20) NOT NULL comment '修改人 ID',
      	`sc_id`           INT NOT NULL COMMENT '運動種類ID',
+	`ci_avail`     TINYINT(1) NOT NULL COMMENT '能否報名', 
      PRIMARY KEY (`ci_id`)
   )
 engine=innodb
@@ -125,7 +124,7 @@ CREATE TABLE `coach`
      `c_intro`      VARCHAR(1000) NOT NULL comment '註解( 可以打經歷 )',
      `c_sus`        TINYINT(1) NOT NULL comment '是否停權',
      `c_pic`        BLOB NOT NULL comment '大頭貼',
-	 `bh_id`        INT NOT NULL comment '分店代號',
+	 `bh_name`        VARCHAR(10) NOT NULL comment '分店名稱',
      PRIMARY KEY (`c_id`)
   )
 engine=innodb
@@ -246,10 +245,10 @@ CREATE TABLE `notify`
      `nt_id`        INT NOT NULL auto_increment comment
      '公告 ID ( 流水號 )',
      `b_id`         VARCHAR(20) NOT NULL comment '員工 ID',
-     `nt_send_time` TIMESTAMP NOT NULL comment '發公告時間',
-     `bh_id`        INT NOT NULL comment '分店 ID',
+     `nt_send_time` TIMESTAMP NULL comment '發公告時間',
+     `bh_id`        INT NULL comment '分店 ID',
      `nt_text`      VARCHAR(255) NOT NULL comment '公告內容',
-     `nt_pic`       BLOB NOT NULL comment '公告圖片',
+     `nt_pic`       BLOB NULL comment '公告圖片',
      PRIMARY KEY (`nt_id`)
   )
 engine=innodb
