@@ -98,7 +98,8 @@ CREATE TABLE `class_info`
      `ci_regi_ed_time` TIMESTAMP NOT NULL comment '截止時間',
      `b_id`            VARCHAR(20) NOT NULL comment '修改人 ID',
      	`sc_id`           INT NOT NULL COMMENT '運動種類ID',
-	`ci_avail`     TINYINT(1) NOT NULL COMMENT '能否報名', 
+	`ci_avail`     TINYINT(1) NOT NULL COMMENT '能否報名',
+	`ci_modi_time`  TIMESTAMP comment '修改時間',
      PRIMARY KEY (`ci_id`)
   )
 engine=innodb
